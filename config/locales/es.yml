@@ -1,0 +1,9 @@
+es: 
+  number: 
+    currency: 
+      format: 
+        format: "%n %u"  
+        unit: "€"  
+        precision: 2 
+        separator: ','  
+        delimiter: '.'

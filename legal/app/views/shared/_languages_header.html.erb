@@ -1,0 +1,6 @@
+<p>
+<% {'eng' => 'en','esp' => 'es'}.each do |name,locale| -%>
+	|<%= link_to name.upcase, locale_set_path(:locale => locale) %>
+<% end %>
+</p>
+

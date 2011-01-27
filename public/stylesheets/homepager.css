@@ -1,0 +1,17 @@
+h1.homepager {
+        font-size: medium;
+	color: #962E2E;
+	clear: both;
+	margin-left: 9px;
+}
+
+div.homepager {
+        width: 710px;
+	margin-left: 9px;
+	text-align: justify;
+}
+
+input[type="button"].homepager {
+        float: right;
+	margin: -30px 35px 15px 0px;
+}

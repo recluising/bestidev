@@ -1,0 +1,58 @@
+body {
+	background-image: url('/images/red-waves-background2.jpg');
+	background-repeat: no-repeat;
+}
+
+.reset {
+   clear: both;
+}
+
+div#top-bar {
+   height: 30px;
+}
+
+ul#language-bar {
+   float: left;
+   font-size: 0.9em;
+   line-heigth: 30px;
+}
+
+ul#footer-bar li {
+   margin-right: 15px;
+   display: inline;
+}
+
+ul#nav-bar {
+   float: right;
+   clear: none;
+   font-size: 1.0em;
+   line-height: 30px;
+   border-style:solid;
+   border-bottom:2px solid #CECECE;
+}
+
+#keywords {
+   background-color:#FFF;
+   color:#B0AA9A;
+   height:16px;
+   padding-left:20px;
+   padding-top:2px;
+   padding-right:5px;
+   width:240px;
+   margin-top:1px;
+   background-image:url('../images/search.png');
+   background-repeat:no-repeat;
+}
+
+
+div#logo-bar {
+   float: left;
+}
+
+div#search-bar {
+   float: right;
+   padding-top: 20px;
+}
+
+
+
