@@ -5,7 +5,7 @@ class OrderMailer < ActionMailer::Base
   def confirm_email(order, resend=false)
     @order = order
     subject = (resend ? "[RESEND] " : "")
-    subject += "#{Spree::Config[:site_name]} Confirmación del pedido ##{order.number}"
+    subject += "#{Spree::Config[:site_name]} DEVELOPMENT Confirmación del pedido ##{order.number}"
     mail(:to => order.email,
          :subject => subject)
   end
@@ -13,7 +13,7 @@ class OrderMailer < ActionMailer::Base
   def cancel_email(order, resend=false)
     @order = order
     subject = (resend ? "[RESEND] " : "")
-    subject += "#{Spree::Config[:site_name]} Cancelación del pedido  ##{order.number}"
+    subject += "#{Spree::Config[:site_name]} DEVELOPMENT Cancelación del pedido  ##{order.number}"
     mail(:to => order.email,
          :subject => subject)
   end
