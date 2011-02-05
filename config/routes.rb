@@ -2,6 +2,7 @@ Onlineshop::Application.routes.draw do
   get "pages/contact"
 
   get "pages/legal_advice"
+  get "pages/conditions"
   get "pages/fake_home"
 
   # The priority is based upon order of creation:

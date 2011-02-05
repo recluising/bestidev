@@ -7,6 +7,9 @@ class PagesController < Spree::BaseController
   def legal_advice
   end
   
+  def conditions
+  end
+
   def fake_home
   end
 
