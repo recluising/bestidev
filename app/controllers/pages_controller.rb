@@ -10,6 +10,9 @@ class PagesController < Spree::BaseController
   def conditions
   end
 
+  def who_we_are
+  end
+
   def fake_home
   end
 

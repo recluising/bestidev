@@ -8,13 +8,13 @@ body {
 }
 
 div#top-bar {
-   height: 30px;
+     height: 30px;
 }
 
 ul#language-bar {
    float: left;
    font-size: 0.9em;
-   line-heigth: 30px;
+   line-height: 30px;
 }
 
 ul#footer-bar li {
@@ -54,5 +54,6 @@ div#search-bar {
    padding-top: 20px;
 }
 
-
-
+.bes-align-right { float:right; margin: 0 0 15px 15px; }
+.bes-align-left { float:left; margin: 0 15px 15px 0; }
+.bes-frame { padding: 5px; border: 1px solid #aaa; }
