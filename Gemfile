@@ -36,3 +36,4 @@ gem "legal", :require => "legal", :path => "legal"
 # group :development, :test do
 #   gem 'webrat'
 # end
+gem "importator", :require => "importator", :path => "importator"
