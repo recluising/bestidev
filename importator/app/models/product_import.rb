@@ -40,7 +40,13 @@ class ProductImport < ActiveRecord::Base
         product_information[:height] = row[columns['Height']]
         product_information[:depth] = row[columns['Depth']]
         product_information[:width] = row[columns['Width']]
-        product_information[:description] = row[columns['Description']]
+        # look for this file
+        if row[columns['Description']] 
+         filename = row[columns['Description']]
+         product_information[:description] = File.open("/home/fernando/webdev/RoR/beshop/xtra/catalogo/#{filename}").readlines.to_s 
+        else
+         product_information[:description] =  "No info"
+        end
         
 
         #Create the product skeleton - should be valid
@@ -63,7 +69,7 @@ class ProductImport < ActiveRecord::Base
         find_and_attach_image(row[columns['Image 4']], product_obj)
 
         #Return a success message
-        log("#{product_obj.name} successfully imported.\n")
+        log("#{product_obj.name} successfully imported by fer.\n")
       end
       
       if ImportProductSettings::DESTROY_ORIGINAL_PRODUCTS_AFTER_IMPORT
@@ -78,7 +84,7 @@ class ProductImport < ActiveRecord::Base
     end
     
     #All done!
-    return [:notice, "Product data was successfully imported."]
+    return [:notice, "Product data was successfully imported by fer."]
   end
   
   
