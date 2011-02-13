@@ -42,7 +42,8 @@ class ProductImport < ActiveRecord::Base
         #product_information[:width] = row[columns['Width']]
         product_information[:description] = row[columns['Descripcion-es']]
         product_information[:on_hand] = row[columns['Stock']]
-        # look for this file
+
+        # look for this file for a detailed descrt
         #if row[columns['Description']] 
         # filename = row[columns['Description']]
         # product_information[:description] = File.open("/home/fernando/webdev/RoR/beshop/xtra/catalogo/#{filename}").readlines.to_s 
@@ -71,6 +72,10 @@ class ProductImport < ActiveRecord::Base
         associate_taxon('Marcas', row[columns['Fabricante']], product_obj)
         
         #Just images 
+        ipath = ImportProductSettings::PRODUCT_IMAGE_PATH 
+        imagefiles = Dir.new(ipath).entries.select{|f|f.include?(row[columns['PN']])}
+        log("Images for #{product_obj.sku}, #{ipath}:\n #{ imagefiles.to_s}", :error)
+        imagefiles.each{|f| find_and_attach_image(f, product_obj)} unless imagefiles.empty?
         #find_and_attach_image(row[columns['Image Main']], product_obj)
         #find_and_attach_image(row[columns['Image 2']], product_obj)
         #find_and_attach_image(row[columns['Image 3']], product_obj)
