@@ -29,7 +29,9 @@ class ImportProductSettings
     #saves the resulting files somewhere else - this is just a repository of originals.
     #PRODUCT_IMAGE_PATH = "#{Rails.root}/lib/etc/product-data/product-images/"
     PRODUCT_IMAGE_PATH = "#{Rails.root}/xtra/catalogo/ver4/fotos/"
-    
+    # Variants file
+    VARIANTS_PATH = "#{Rails.root}/xtra/catalogo/ver4/"
+         
     #From experience, CSV files from clients tend to have a few 'header' rows - count them up if you have them,
     #and enter this number in here - the import script will skip these rows.
     INITIAL_ROWS_TO_SKIP = 1

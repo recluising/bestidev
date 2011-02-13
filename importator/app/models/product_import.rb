@@ -26,7 +26,10 @@ class ProductImport < ActiveRecord::Base
 
       columns = ImportProductSettings::COLUMN_MAPPINGS
       rows = FasterCSV.read(self.data_file.path)
-      log("Importing products for #{self.data_file_file_name} began at #{Time.now}")
+      
+     
+      log("Importing products for #{self.data_file_file_name}, path is #{self.data_file.path} began at #{Time.now}")
+
       rows[ImportProductSettings::INITIAL_ROWS_TO_SKIP..-1].each do |row|
         product_information = {}
         
@@ -81,15 +84,23 @@ class ProductImport < ActiveRecord::Base
         #find_and_attach_image(row[columns['Image 3']], product_obj)
         #find_and_attach_image(row[columns['Image 4']], product_obj)
 
-        #Return a success message
-        log("#{product_obj.name} successfully imported by fer.\n")
-      end
-      
-      if ImportProductSettings::DESTROY_ORIGINAL_PRODUCTS_AFTER_IMPORT
-        @products_before_import.each { |p| p.destroy }
+      # now the variants (this works, but can be implemented more elegant :)
+      variants_name = File.basename(self.data_file_file_name, ".csv") + "_variants.csv"
+      variantsfile = ImportProductSettings::VARIANTS_PATH + variants_name 
+      File.open(variantsfile).readlines.each do |l|
+        mpn,pn,ot,val,stock,price = l.split(",")
+        if product_obj.sku == mpn then
+          opt_type = product_obj.option_types.select{|o| o.name == ot}.first
+	  opt_type = product_obj.option_types.create(:name => ot, :presentation => ot) if opt_type.nil?
+          new_value = opt_type.option_values.create(:name => val, :presentation => val)
+	  ovariant = product_obj.variants.create(:sku => pn)
+	  ovariant.option_values << new_value
+	  ovariant.save!
+        end
       end
       
       log("Importing products for #{self.data_file_file_name} completed at #{DateTime.now}")
+    end
       
     rescue Exception => exp
       log("An error occurred during import, please check file and try again. (#{exp.message})\n#{exp.backtrace.join('\n')}", :error)
@@ -153,7 +164,6 @@ class ProductImport < ActiveRecord::Base
     product.images << product_image if product_image.save
   end
 
-  
   
   ### TAXON HELPERS ###  
   def associate_taxon(taxonomy_name, taxon_name, product)
