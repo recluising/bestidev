@@ -31,22 +31,24 @@ class ProductImport < ActiveRecord::Base
         product_information = {}
         
         #Easy ones first
-        product_information[:sku] = row[columns['SKU']]
-        product_information[:name] = row[columns['Name']]
-        product_information[:price] = row[columns['Master Price']]
-        product_information[:cost_price] = row[columns['Cost Price']]
+        product_information[:sku] = row[columns['PN']]
+        product_information[:name] = row[columns['Referencia']]
+        product_information[:price] = row[columns['Precio']].gsub("€","").to_f
+        product_information[:cost_price] = row[columns['Coste']].gsub("€","").to_f
         product_information[:available_on] = DateTime.now - 1.day #Yesterday to make SURE it shows up
-        product_information[:weight] = row[columns['Weight']]
-        product_information[:height] = row[columns['Height']]
-        product_information[:depth] = row[columns['Depth']]
-        product_information[:width] = row[columns['Width']]
+        #product_information[:weight] = row[columns['Weight']]
+        #product_information[:height] = row[columns['Height']]
+        #product_information[:depth] = row[columns['Depth']]
+        #product_information[:width] = row[columns['Width']]
+        product_information[:description] = row[columns['Descripcion-es']]
+        product_information[:on_hand] = row[columns['Stock']]
         # look for this file
-        if row[columns['Description']] 
-         filename = row[columns['Description']]
-         product_information[:description] = File.open("/home/fernando/webdev/RoR/beshop/xtra/catalogo/#{filename}").readlines.to_s 
-        else
-         product_information[:description] =  "No info"
-        end
+        #if row[columns['Description']] 
+        # filename = row[columns['Description']]
+        # product_information[:description] = File.open("/home/fernando/webdev/RoR/beshop/xtra/catalogo/#{filename}").readlines.to_s 
+        #else
+        # product_information[:description] =  "No info"
+        #end
         
 
         #Create the product skeleton - should be valid
@@ -59,14 +61,19 @@ class ProductImport < ActiveRecord::Base
         #Save the object before creating asssociated objects
         product_obj.save
 
+        # apply the properties if relevant
+        find_and_assign_property_value('Talla', row[columns['Talla']], product_obj)
+        find_and_assign_property_value('Volumen', row[columns['Volumen']], product_obj)
+
         #Now we have all but images and taxons loaded
-        associate_taxon('Marca', row[columns['Marca']], product_obj)
+        # Seccion + Fabricante
+        #associate_taxon('Marca', row[columns['Marca']], product_obj)
         
         #Just images 
-        find_and_attach_image(row[columns['Image Main']], product_obj)
-        find_and_attach_image(row[columns['Image 2']], product_obj)
-        find_and_attach_image(row[columns['Image 3']], product_obj)
-        find_and_attach_image(row[columns['Image 4']], product_obj)
+        #find_and_attach_image(row[columns['Image Main']], product_obj)
+        #find_and_attach_image(row[columns['Image 2']], product_obj)
+        #find_and_attach_image(row[columns['Image 3']], product_obj)
+        #find_and_attach_image(row[columns['Image 4']], product_obj)
 
         #Return a success message
         log("#{product_obj.name} successfully imported by fer.\n")
@@ -102,7 +109,22 @@ class ProductImport < ActiveRecord::Base
     @rake_log.send severity, message
     puts message
   end
-
+  ### PRODUCT PROPERTIES
+  def find_and_assign_property_value(property_name, property_value, product_obj)
+    return if property_value.blank?
+    property = Property.find_by_name(property_name)
+    if property.nil?
+      property = Property.new
+      property.name = property_name
+      property.presentation = property_name
+      property.save
+    end
+    pp = ProductProperty.new
+    pp.product = product_obj
+    pp.property = property
+    pp.value = property_value
+    pp.save
+  end
   
   ### IMAGE HELPERS ###
   
