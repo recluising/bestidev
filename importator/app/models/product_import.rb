@@ -67,7 +67,8 @@ class ProductImport < ActiveRecord::Base
 
         #Now we have all but images and taxons loaded
         # Seccion + Fabricante
-        #associate_taxon('Marca', row[columns['Marca']], product_obj)
+        associate_taxon('Productos', seccion(row[columns['Seccion']]), product_obj)
+        associate_taxon('Marcas', row[columns['Fabricante']], product_obj)
         
         #Just images 
         #find_and_attach_image(row[columns['Image Main']], product_obj)
@@ -112,13 +113,10 @@ class ProductImport < ActiveRecord::Base
   ### PRODUCT PROPERTIES
   def find_and_assign_property_value(property_name, property_value, product_obj)
     return if property_value.blank?
+    # find or create the property itself
     property = Property.find_by_name(property_name)
-    if property.nil?
-      property = Property.new
-      property.name = property_name
-      property.presentation = property_name
-      property.save
-    end
+    property = Property.create(:name => property_name, :presentation => property_name) if property.nil?
+    # create the new product_property 
     pp = ProductProperty.new
     pp.product = product_obj
     pp.property = property
@@ -170,6 +168,16 @@ class ProductImport < ActiveRecord::Base
     product.taxons << taxon if taxon.save
   end
 
+  def seccion(code)
+    case code
+      when 'VAR' then return "Varios"
+      when 'ATL' then return "Atletismo"
+      when 'CIC' then return "Ciclismo"
+      when 'NAT' then return "Natación"
+      when 'NUT' then return "Nutrición"
+      else return "Otros"
+    end
+  end
   
   ### END TAXON HELPERS ###
 end
