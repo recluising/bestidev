@@ -36,24 +36,13 @@ class ProductImport < ActiveRecord::Base
         #Easy ones first
         product_information[:sku] = row[columns['PN']]
         product_information[:name] = row[columns['Referencia']]
-        product_information[:price] = row[columns['Precio']].gsub("€","").to_f
-        product_information[:cost_price] = row[columns['Coste']].gsub("€","").to_f
+        product_information[:price] = row[columns['Precio']].gsub("€","").to_f unless row[columns['Precio']].nil?
+        product_information[:cost_price] = row[columns['Coste']].gsub("€","").to_f unless row[columns['Coste']].nil?
         product_information[:available_on] = DateTime.now - 1.day #Yesterday to make SURE it shows up
-        #product_information[:weight] = row[columns['Weight']]
-        #product_information[:height] = row[columns['Height']]
-        #product_information[:depth] = row[columns['Depth']]
-        #product_information[:width] = row[columns['Width']]
-        product_information[:description] = row[columns['Descripcion-es']]
-        product_information[:on_hand] = row[columns['Stock']]
+        product_information[:description] = row[columns['Descripcion-es']]  unless row[columns['Descripcion-es']].nil?
+        product_information[:on_hand] = row[columns['Stock']]  unless row[columns['Stock']].nil?
 
-        # look for this file for a detailed descrt
-        #if row[columns['Description']] 
-        # filename = row[columns['Description']]
-        # product_information[:description] = File.open("/home/fernando/webdev/RoR/beshop/xtra/catalogo/#{filename}").readlines.to_s 
-        #else
-        # product_information[:description] =  "No info"
-        #end
-        
+        log("Importing #{product_information[:sku]}, named #{product_information[:name]}")
 
         #Create the product skeleton - should be valid
         product_obj = Product.new(product_information)
@@ -66,7 +55,6 @@ class ProductImport < ActiveRecord::Base
         product_obj.save
 
         # apply the properties if relevant
-        find_and_assign_property_value('Talla', row[columns['Talla']], product_obj)
         find_and_assign_property_value('Volumen', row[columns['Volumen']], product_obj)
 
         #Now we have all but images and taxons loaded
@@ -77,8 +65,8 @@ class ProductImport < ActiveRecord::Base
         #Just images 
         ipath = ImportProductSettings::PRODUCT_IMAGE_PATH 
         imagefiles = Dir.new(ipath).entries.select{|f|f.include?(row[columns['PN']])}
-        log("Images for #{product_obj.sku}, #{ipath}:\n #{ imagefiles.to_s}", :error)
         imagefiles.each{|f| find_and_attach_image(f, product_obj)} unless imagefiles.empty?
+        log("#{imagefiles.size} found for #{product_information[:sku]}, named #{product_information[:name]}")
         #find_and_attach_image(row[columns['Image Main']], product_obj)
         #find_and_attach_image(row[columns['Image 2']], product_obj)
         #find_and_attach_image(row[columns['Image 3']], product_obj)
@@ -89,17 +77,25 @@ class ProductImport < ActiveRecord::Base
       variantsfile = ImportProductSettings::VARIANTS_PATH + variants_name 
       File.open(variantsfile).readlines.each do |l|
         mpn,pn,ot,val,stock,price = l.split(",")
+        price = price.chomp.gsub("€", "").strip unless price.nil?
         if product_obj.sku == mpn then
           opt_type = product_obj.option_types.select{|o| o.name == ot}.first
 	  opt_type = product_obj.option_types.create(:name => ot, :presentation => ot) if opt_type.nil?
           new_value = opt_type.option_values.create(:name => val, :presentation => val)
 	  ovariant = product_obj.variants.create(:sku => pn)
+          ovariant.count_on_hand = stock
+          ovariant.price = price unless price.empty?
 	  ovariant.option_values << new_value
+          imagefiles = Dir.new(ipath).entries.select{|f|f.include?(pn)}
+          unless imagefiles.empty?
+            imagefiles.each{|f| find_and_attach_image(f, ovariant)} 
+            log("#{imagefiles.size} found for variants of #{product_information[:sku]},named #{product_information[:name]}")
+          end
 	  ovariant.save!
         end
       end
       
-      log("Importing products for #{self.data_file_file_name} completed at #{DateTime.now}")
+      log("product  #{product_obj.sku} was imported at #{DateTime.now}")
     end
       
     rescue Exception => exp
@@ -111,7 +107,7 @@ class ProductImport < ActiveRecord::Base
     return [:notice, "Product data was successfully imported by fer."]
   end
   
-  
+ 
   private 
   
   ### MISC HELPERS ####

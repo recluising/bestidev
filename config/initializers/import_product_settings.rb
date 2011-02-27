@@ -17,10 +17,7 @@ class ImportProductSettings
       'Coste' => 7,
       'Precio' => 8,
       'Volumen' => 9,
-      'Talla' => 10,
-      'Color' => 11,
-      'Stock' => 17,
-      'Wert' => 18
+      'Stock' => 10
     }
 
     #Where are you keeping your master images?
@@ -28,9 +25,9 @@ class ImportProductSettings
     #As each product is saved, Spree (Well, paperclip) grabs it, transforms it into a range of sizes and
     #saves the resulting files somewhere else - this is just a repository of originals.
     #PRODUCT_IMAGE_PATH = "#{Rails.root}/lib/etc/product-data/product-images/"
-    PRODUCT_IMAGE_PATH = "#{Rails.root}/xtra/catalogo/ver4/fotos/"
+    PRODUCT_IMAGE_PATH = "#{Rails.root}/xtra/catalogo/ver6/fotos/"
     # Variants file
-    VARIANTS_PATH = "#{Rails.root}/xtra/catalogo/ver4/"
+    VARIANTS_PATH = "#{Rails.root}/xtra/catalogo/ver6/"
          
     #From experience, CSV files from clients tend to have a few 'header' rows - count them up if you have them,
     #and enter this number in here - the import script will skip these rows.
