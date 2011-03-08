@@ -272,11 +272,11 @@ div.right {
 }
 a { outline: none; }
 #wrapper {
-  background: transparent url(../images/wrapper-back.png) top center no-repeat;
+  background: transparent url(../images/wrapper-back.png) top center repeat-y;
   padding: 25px 20px 20px;
   position: relative;
 }
-body.two-col #wrapper { background-image: url(../images/wrapper-back-2.png); }
+body.two-col #wrapper { background-image: url(../images/wrapper-back-2_fer.png) repeat-y;}
 .container {
   width: 950px;
   margin: 0 auto;

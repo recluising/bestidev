@@ -1,7 +1,11 @@
 body {
-	background-image: url('/images/red-waves-background2.jpg');
-	background-repeat: no-repeat;
+	/*background-image: url('/images/red-waves-background2.jpg');
+	background-repeat: no-repeat;*/
+	background: #737277;
 }
+
+#header a { color: #FFFFFF; }
+#header a:hover { color: #000000; }
 
 .reset {
    clear: both;
