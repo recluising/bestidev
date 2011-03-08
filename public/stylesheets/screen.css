@@ -276,7 +276,7 @@ a { outline: none; }
   padding: 25px 20px 20px;
   position: relative;
 }
-body.two-col #wrapper { background-image: url(../images/wrapper-back-2_fer.png) repeat-y;}
+body.two-col #wrapper { background-image: url(../images/wrapper-back-2_fer.png);}
 .container {
   width: 950px;
   margin: 0 auto;
