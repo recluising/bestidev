@@ -1,15 +1,19 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.4'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 #gem 'mysql'
 
-gem 'spree', '0.40.0'
+gem 'spree', '0.40.3'
+#gem 'spree', :git => 'git://github.com/spree/spree.git'
 #gem 'spree_i18n', :git => 'git://github.com/spree/spree_i18n.git' 
 #gem 'import_products', :git => 'git://github.com/joshmcarthur/spree-import-products.git'
 #gem 'spree_blogging_spree', :git => 'git://github.com/divineforest/spree-blogging-spree.git'
 gem 'spree_check_fix', :git => 'git://github.com/dancinglightning/spree-check-fix.git'
+gem "spree_paypal_express", :git => "git://github.com/spree/spree_paypal_express.git"
+
 gem "legal", :require => "legal", :path => "legal"
+gem "importator", :require => "importator", :path => "importator"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -36,4 +40,3 @@ gem "legal", :require => "legal", :path => "legal"
 # group :development, :test do
 #   gem 'webrat'
 # end
-gem "importator", :require => "importator", :path => "importator"
