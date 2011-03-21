@@ -1,6 +1,6 @@
-
 NOTA: MAIL DE PRUEBA. CONTENIDO SIN VALIDEZ.
-Estimado Cliente,
+
+Estimado Cliente:
 
 Le confirmamos el recibo de su pedido en bestiaz.com. Compruebe que los siguientes datos sobre su pedido son correctos.
 
@@ -19,6 +19,12 @@ Subtotal: <%= number_to_currency @order.item_total %>
 <%= "#{adjustment.label}: #{number_to_currency adjustment.amount}"%>
 <% end %>
  Total del pedido: <%= number_to_currency @order.total %>
+
+<% if @order.payment_method.name == "Transferencia Bancaria" %>
+  Método de pago: Transferencia Bancaria 
+  Por favor incluya como motivo de la transferencia "Pedido  <%= @order.number %> " 
+  <%= @order.payment_method.description.to_s %>
+<% end %>
 
 
 Gracias por su compra. Si tiene alguna duda, puede contactar con nosotros en info.bestiaz@gmail.com

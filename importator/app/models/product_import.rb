@@ -23,15 +23,20 @@ class ProductImport < ActiveRecord::Base
     begin
       #Get products *before* import - 
       @products_before_import = Product.all
+      @products_before_import.each { |p| p.destroy }
+      OptionType.all.each{ |p| p.destroy }
 
       columns = ImportProductSettings::COLUMN_MAPPINGS
       rows = FasterCSV.read(self.data_file.path)
       
      
       log("Importing products for #{self.data_file_file_name}, path is #{self.data_file.path} began at #{Time.now}")
+      num_imported = 0
 
       rows[ImportProductSettings::INITIAL_ROWS_TO_SKIP..-1].each do |row|
         product_information = {}
+        num_imported += 1
+        break if num_imported > 3
         
         #Easy ones first
         product_information[:sku] = row[columns['PN']]
@@ -80,7 +85,7 @@ class ProductImport < ActiveRecord::Base
         price = price.chomp.gsub("€", "").strip unless price.nil?
         if product_obj.sku == mpn then
           opt_type = product_obj.option_types.select{|o| o.name == ot}.first
-	  opt_type = product_obj.option_types.create(:name => ot, :presentation => ot) if opt_type.nil?
+	  opt_type = product_obj.option_types.create(:name => ot, :presentation => ot.capitalize) if opt_type.nil?
           new_value = opt_type.option_values.create(:name => val, :presentation => val)
 	  ovariant = product_obj.variants.create(:sku => pn)
           ovariant.count_on_hand = stock

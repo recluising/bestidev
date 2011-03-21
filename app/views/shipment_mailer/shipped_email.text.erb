@@ -1,0 +1,20 @@
+NOTA: MAIL DE PRUEBA. CONTENIDO SIN VALIDEZ.
+
+Estimado cliente:
+
+Su pedido ha sido enviado.
+
+============================================================
+Resumen del envío
+============================================================
+<% for item in @shipment.line_items %>
+<%=item.variant.sku %> <%=item.variant.product.name%> <%= variant_options(item.variant) %> (<%=item.quantity%>)
+<% end %>
+============================================================
+
+<%= "Tracking Information: #{@shipment.tracking}" if @shipment.tracking %>
+
+Gracias por su compra. Si tiene alguna duda, puede contactar con nosotros en info.bestiaz@gmail.com
+
+Saludos,
+Tu equipo de confianza www.bestiaz.com

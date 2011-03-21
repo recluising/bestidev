@@ -4,7 +4,7 @@ Onlineshop::Application.routes.draw do
   get "pages/legal_advice"
   get "pages/conditions"
   get "pages/who_we_are"
-  get "pages/fake_home"
+  #get "pages/fake_home"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -55,7 +55,7 @@ Onlineshop::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "pages#fake_home"
+  #root :to => "pages#fake_home"
 
   # See how all your routes lay out with "rake routes"
 
