@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<%= hook :inside_head do %>
+  <%= render :partial => 'shared/head'%>
+<% end %>
+</head>
+<%
+if @body_class.nil?
+  if content_for?(:sidebar)
+    @body_class = 'two-col'
+  else
+    @body_class = 'one-col'
+  end
+end
+ %>
+<body class="<%= @body_class %>" id="<%= @body_id %>">
+  <div id="header" class="container_bg">
+    <div class="container">
+    <%= logo %>
+    <div id="login-bar">
+      <ul id="nav-bar">
+        <p> 
+        <% if current_user %>
+          <li><%= link_to t('my_account'), account_path %></li>
+          <li><%= link_to t('logout'), destroy_user_session_path %></li>
+        <% else %>
+          <li><%= link_to t('log_in'), login_path %></li>
+        <% end %>
+        </p>
+        <% if store_menu? %>
+        <p> 
+          <!-- partial 'shared/store_menu' start -->
+          <!--<li><%= link_to t("home") , root_path %></li> -->
+        </p>
+        <p>
+          <li class="cart-indicator"><%= link_to_cart %></li>
+        </p>
+          <!-- partial 'shared/store_menu' end -->
+        <% end %>
+        <!--<%= render 'shared/nav_bar' %> -->
+      </ul>
+    </div>
+    </div>
+  </div>
+
+  <div id="wrapper" class="container">
+    <% if content_for?(:sidebar) %>
+    <div id="sidebar">
+      <%= hook :sidebar do %>
+        <%= yield :sidebar %>
+      <% end %>
+    </div>
+    <% end %>
+
+    <div id="content">
+
+      <%= breadcrumbs(@taxon) if @taxon %>
+      <% if flash.notice %>
+      <div class="flash notice"><%= flash.notice %></div>
+      <% end %>
+      <% if flash[:error] %>
+      <div class="flash errors"><%= flash[:error] %></div>
+      <% end %>
+      <%= yield %>
+    </div>
+    <%= render :partial => 'shared/footer'%>
+  </div>
+
+</body>
+</html>
