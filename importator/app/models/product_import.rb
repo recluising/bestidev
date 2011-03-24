@@ -36,18 +36,19 @@ class ProductImport < ActiveRecord::Base
       rows[ImportProductSettings::INITIAL_ROWS_TO_SKIP..-1].each do |row|
         product_information = {}
         num_imported += 1
-        break if num_imported > 3
+        next if (row[columns['Fabricante']] =~ /FAST/).nil?
         
         #Easy ones first
         product_information[:sku] = row[columns['PN']]
         product_information[:name] = row[columns['Referencia']]
-        product_information[:price] = row[columns['Precio']].gsub("€","").to_f unless row[columns['Precio']].nil?
-        product_information[:cost_price] = row[columns['Coste']].gsub("€","").to_f unless row[columns['Coste']].nil?
+        # remove commas from prices, assume the point is the decimal separator
+        product_information[:price] = format_price row[columns['Precio']] unless row[columns['Precio']].nil?
+        product_information[:cost_price] = format_price row[columns['Coste']] unless row[columns['Coste']].nil?
         product_information[:available_on] = DateTime.now - 1.day #Yesterday to make SURE it shows up
         product_information[:description] = row[columns['Descripcion-es']]  unless row[columns['Descripcion-es']].nil?
         product_information[:on_hand] = row[columns['Stock']]  unless row[columns['Stock']].nil?
 
-        log("Importing #{product_information[:sku]}, named #{product_information[:name]}")
+        log("Importing #{product_information[:sku]}, named #{product_information[:name]}, price #{product_information[:price]}")
 
         #Create the product skeleton - should be valid
         product_obj = Product.new(product_information)
@@ -82,14 +83,14 @@ class ProductImport < ActiveRecord::Base
       variantsfile = ImportProductSettings::VARIANTS_PATH + variants_name 
       File.open(variantsfile).readlines.each do |l|
         mpn,pn,ot,val,stock,price = l.split(",")
-        price = price.chomp.gsub("€", "").strip unless price.nil?
+        price = format_price price.chomp unless price.nil?
         if product_obj.sku == mpn then
           opt_type = product_obj.option_types.select{|o| o.name == ot}.first
 	  opt_type = product_obj.option_types.create(:name => ot, :presentation => ot.capitalize) if opt_type.nil?
           new_value = opt_type.option_values.create(:name => val, :presentation => val)
 	  ovariant = product_obj.variants.create(:sku => pn)
           ovariant.count_on_hand = stock
-          ovariant.price = price unless price.empty?
+          ovariant.price = price unless price.nil?
 	  ovariant.option_values << new_value
           imagefiles = Dir.new(ipath).entries.select{|f|f.include?(pn)}
           unless imagefiles.empty?
@@ -116,6 +117,10 @@ class ProductImport < ActiveRecord::Base
   private 
   
   ### MISC HELPERS ####
+  ### format price 
+  def format_price(price)
+    price.gsub("€","").gsub(",","").to_f
+  end
   
   #Log a message to a file - logs in standard Rails format to logfile set up in the import_products initializer
   #and console.
