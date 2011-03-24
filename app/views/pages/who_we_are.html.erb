@@ -1,3 +1,22 @@
+<!--
+<style type="text/css">
+h1
+{
+margin:30px 0px 40px 70px;
+color: gray;
+}
+p
+{
+margin:0px 120px 10px 70px;
+}
+h3
+{
+color: gray;
+}
+</style>
+-->
+<%= stylesheet_link_tag "staticpage" %>
+
 <h1>Quiénes Somos</h1>
 <p>
 <strong>Bestiaz</strong> nace en 2011 con el objetivo de ofrecer productos técnicos a deportistas de todos los niveles, tanto principiantes como expertos. Para los primeros, ofrecemos una selección en la que prima una elevada relación calidad-precio. Para los segundos ponemos a su disposición lo mejor del mercado.
@@ -16,11 +35,16 @@ Un elemento diferenciador de <strong>Bestiaz</strong> es la profesionalidad de s
 <strong>
 “Lo que busques, te lo proporcionamos…al mejor precio y en el menor tiempo” 
 </strong>, este es nuestro lema.
+<br/>
+<br/>
 </p>
-<%= image_tag "who_we_are/alfonso.jpg", :class => "bes-align-left bes-frame"  %> 
+<p>
+<%= image_tag "who_we_are/facealfon_scaled.jpg", :class => "bes-align-left bes-frame"  %> 
 <h3>
 Alfonso Izquierdo. CEO (Chief Executive Officer)
 </h3>
+</p>
+<p>
 <p>
 Ingeniero Informático por la Universidad de Valladolid. Tras terminar sus estudios en Bélgica decide constituir Bestiaz, una aventura que emprende y lidera desde principios de 2011.
 </p>
@@ -34,12 +58,14 @@ Corredor habitual y en activo, obtuvo en su época Junior resultados destacados.
 </p>
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
 
-<%= image_tag "who_we_are/facefer.jpg", :class => "bes-align-left bes-frame"  %> 
-<h3>Fernando Izquierdo. IT Director</h3>
+<p>
+<%= image_tag "who_we_are/facefer.jpg", :class => "bes-align-right bes-frame"  %> 
+</p>
+<!--
+<h3 style="margin:10px 120px 20px 70px;">Fernando Izquierdo. IT Director</h3>
+-->
+<h3 style="margin:0px 120px 20px 70px;">Fernando Izquierdo. IT Director</h3>
 <p>
 Ingeniero de Telecomunicaciones por la Universidad de Valladolid y Master en Bioinformática por la Universidad de Hamburgo. Cuenta con seis años de experiencia profesional en el sector IT. Afincado desde 2005 en Alemania, ha residido en numerosas ciudades; Munich, Hamburgo, Berlín, hasta instalarse definitivamente en Heidelberg. 
 </p>
@@ -53,10 +79,11 @@ En Bestiaz es responsable de todas las actividades IT, y en concreto del desarro
 </p>
 <br/>
 <br/>
-<br/>
 
-<%= image_tag "who_we_are/facealex_scaled.jpg", :class => "bes-align-right bes-frame"  %> 
+<p>
+<%= image_tag "who_we_are/facealex_scaled.jpg", :class => "bes-align-left bes-frame"  %> 
 <h3>Alejandro Izquierdo. Operations Director</h3>
+</p>
 <p>
 Ingeniero Aeronáutico por la Universidad Politécnica de Madrid y licenciado en Administración y Dirección de empresas por la UNED. Durante sus ya más de diez años de experiencia profesional ha desempeñado diversos puestos de gestión en diferentes multinacionales, especializándose en los últimos años en Compras a proveedores altamente tecnológicos en Europa y Norteamérica.
 Entusiasta del deporte, se ha especializado en actividades Ultra y Alpinas, algunas de ellas, recogidas en su web personal <%= link_to "www.alejandroizquierdo.com", "http://www.alejandroizquierdo.com" %>

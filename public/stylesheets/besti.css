@@ -28,11 +28,13 @@ ul#footer-bar li {
 
 ul#nav-bar {
    float: right;
-   clear: none;
-   font-size: 1.6em;
+   clear: both;
+   font-size: 1.5em;
    line-height: 40px;
+/*
    border-style:solid;
    border-bottom:5px solid #CECECE;
+*/
 }
 
 #keywords {
