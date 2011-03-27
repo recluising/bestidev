@@ -1,6 +1,7 @@
-<p>
+<h4>
 <% {'eng' => 'en','esp' => 'es'}.each do |name,locale| -%>
-	|<%= link_to name.upcase, locale_set_path(:locale => locale) %>
+	<%= link_to name.upcase, locale_set_path(:locale => locale) %>
 <% end %>
-</p>
-
+</h4>
+<%= link_to image_tag("logos/f_logo_scaled.jpg"), 'http://www.facebook.com/pages/Bestiaz/161631907226080' %>
+<%= link_to image_tag("logos/twitter_scaled.png"), 'http://twitter.com/bestiazshop' %>
