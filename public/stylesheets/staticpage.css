@@ -7,6 +7,11 @@ p
 {
 margin:0px 120px 10px 70px;
 }
+p.justified
+{
+margin:0px 120px 10px 70px;
+text-align:justify;
+}
 
 h3
 {

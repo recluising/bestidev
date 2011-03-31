@@ -97,6 +97,7 @@ class ProductImport < ActiveRecord::Base
             imagefiles.each{|f| find_and_attach_image(f, ovariant)} 
             log("#{imagefiles.size} found for variants of #{product_information[:sku]},named #{product_information[:name]}")
           end
+          log(" variant priced #{ovariant.price} with sku #{pn} saved for #{product_information[:sku]},named #{product_information[:name]}")
 	  ovariant.save!
         end
       end
