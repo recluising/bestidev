@@ -25,9 +25,10 @@ class ImportProductSettings
     #As each product is saved, Spree (Well, paperclip) grabs it, transforms it into a range of sizes and
     #saves the resulting files somewhere else - this is just a repository of originals.
     #PRODUCT_IMAGE_PATH = "#{Rails.root}/lib/etc/product-data/product-images/"
-    PRODUCT_IMAGE_PATH = "#{Rails.root}/xtra/catalogo/ver7/fotos/"
+    version = 8
+    PRODUCT_IMAGE_PATH = "#{Rails.root}/xtra/catalogo/ver#{version}/fotos/"
     # Variants file
-    VARIANTS_PATH = "#{Rails.root}/xtra/catalogo/ver7/"
+    VARIANTS_PATH = "#{Rails.root}/xtra/catalogo/ver#{version}/"
          
     #From experience, CSV files from clients tend to have a few 'header' rows - count them up if you have them,
     #and enter this number in here - the import script will skip these rows.

@@ -27,7 +27,7 @@ class ProductImport < ActiveRecord::Base
       OptionType.all.each{ |p| p.destroy }
 
       columns = ImportProductSettings::COLUMN_MAPPINGS
-      rows = FasterCSV.read(self.data_file.path)
+      rows = FasterCSV.read(self.data_file.path, :col_sep => '|')
       
      
       log("Importing products for #{self.data_file_file_name}, path is #{self.data_file.path} began at #{Time.now}")
@@ -36,7 +36,7 @@ class ProductImport < ActiveRecord::Base
       rows[ImportProductSettings::INITIAL_ROWS_TO_SKIP..-1].each do |row|
         product_information = {}
         num_imported += 1
-        next if (row[columns['Fabricante']] =~ /FAST/).nil?
+        #next if (row[columns['Fabricante']] =~ /FAST/).nil?
         
         #Easy ones first
         product_information[:sku] = row[columns['PN']]
@@ -82,9 +82,11 @@ class ProductImport < ActiveRecord::Base
       variants_name = File.basename(self.data_file_file_name, ".csv") + "_variants.csv"
       variantsfile = ImportProductSettings::VARIANTS_PATH + variants_name 
       File.open(variantsfile).readlines.each do |l|
-        mpn,pn,ot,val,stock,price = l.split(",")
+        mpn,pn,ot,val,stock,price = l.split('|').map{|e|e.gsub('"','')}
         price = format_price price.chomp unless price.nil?
+        #log "check if variant #{product_obj.sku} belongs to #{mpn}"
         if product_obj.sku == mpn then
+          log "variant #{pn} belongs to #{mpn}"
           opt_type = product_obj.option_types.select{|o| o.name == ot}.first
 	  opt_type = product_obj.option_types.create(:name => ot, :presentation => ot.capitalize) if opt_type.nil?
           new_value = opt_type.option_values.create(:name => val, :presentation => val)
@@ -120,7 +122,9 @@ class ProductImport < ActiveRecord::Base
   ### MISC HELPERS ####
   ### format price 
   def format_price(price)
-    price.gsub("€","").gsub(",","").to_f
+    price.gsub!("€","")
+    price.gsub!(".","")
+    price.gsub!(",",".").to_f
   end
   
   #Log a message to a file - logs in standard Rails format to logfile set up in the import_products initializer

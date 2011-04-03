@@ -9,6 +9,7 @@ module SpreeSite
 	#Spree::Config.set(:logo => "/images/logo.png")
 	Spree::Config.set(:logo => "/images/cabecera2.jpg")
 	Spree::Config.set(:admin_products_per_page => 12)
+	Spree::Config.set(:products_per_page => 12)
     end
     config.to_prepare &method(:activate).to_proc
   end
