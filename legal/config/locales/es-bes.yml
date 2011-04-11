@@ -271,6 +271,7 @@ es:
   backordered: Backordered
   backordering_is_allowed: "Backordering %{not} allowed"
   balance_due: "Balance Due"
+  balance: "Cerrar balance"
   best_selling_products: "Best Selling Products"
   best_selling_taxons: "Best Selling Taxons"
   bill_address: "Dirección de facturación"

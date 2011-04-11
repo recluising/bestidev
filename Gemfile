@@ -9,8 +9,9 @@ gem 'spree', '0.40.3'
 #gem 'spree_i18n', :git => 'git://github.com/spree/spree_i18n.git' 
 #gem 'import_products', :git => 'git://github.com/joshmcarthur/spree-import-products.git'
 #gem 'spree_blogging_spree', :git => 'git://github.com/divineforest/spree-blogging-spree.git'
-gem 'spree_check_fix', :git => 'git://github.com/dancinglightning/spree-check-fix.git'
+#gem 'spree_check_fix', :git => 'git://github.com/dancinglightning/spree-check-fix.git'
 gem "spree_paypal_express", :git => "git://github.com/spree/spree_paypal_express.git"
+gem 'spree_check_capture', :git => 'git://github.com/gogogoaldi/spree_check_capture.git'
 
 gem "legal", :require => "legal", :path => "legal"
 gem "importator", :require => "importator", :path => "importator"

@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/dancinglightning/spree-check-fix.git
-  revision: e72d483ca2902a905b826e5eb85e2fd49f7508f9
+  remote: git://github.com/gogogoaldi/spree_check_capture.git
+  revision: fcd08786d2971588882a028fe9a0e9ca8b9c405e
   specs:
-    spree_check_fix (0.0.1)
+    spree_check_capture (0.0.1)
       spree_core (>= 0.30.0)
 
 GIT
@@ -168,6 +168,6 @@ DEPENDENCIES
   legal!
   rails (= 3.0.4)
   spree (= 0.40.3)
-  spree_check_fix!
+  spree_check_capture!
   spree_paypal_express!
   sqlite3-ruby
