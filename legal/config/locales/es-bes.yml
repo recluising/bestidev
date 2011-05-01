@@ -62,7 +62,7 @@ es:
         verification_value: "Codigo de verificacion"
         year: Año
       inventory_unit: 
-        state: Provincia
+        state: Estado
       line_item: 
         price: Precio
         quantity: Cantidad
@@ -72,7 +72,7 @@ es:
         item_total: "Total articulos"
         number: Numero
         special_instructions: "Instrucciones especiales"
-        state: Provincia
+        state: Estado
         total: Total
       product: 
         available_on: "Disponible en"
@@ -184,8 +184,8 @@ es:
         one: "Categoría de envio"
         other: "Categorías de envio"
       state: 
-        one: Provincia
-        other: Provincias
+        one: Comunidad
+        other: Comunidades
       tax_category: 
         one: "Categoría"
         other: "Categorías"
@@ -217,7 +217,7 @@ es:
   add_product_properties: "Añadir propiedades de producto"
   add_rule_of_type: Add rule of type
   add_scope: "Add a scope"
-  add_state: "Añadir provincia"
+  add_state: "Añadir comunidad"
   add_to_cart: "Añadir a la cesta"
   add_zone: "Añadir zona"
   additional_item: Coste adicional del item
@@ -371,7 +371,7 @@ es:
   editing_prototype: "Editando Prototipo"
   editing_shipping_category: "Editando Categoria de envío"
   editing_shipping_method: "Editando metodo de envío"
-  editing_state: "Editando provincia"
+  editing_state: "Editando comunidad"
   editing_tax_category: "Editando Categoría fiscal"
   editing_tax_rate: "Editing Impuesto"
   editing_tracker: Editing Tracker
@@ -531,7 +531,7 @@ es:
   new_shipment: "Nuevo envio"
   new_shipping_category: "Nueva categoria de envio"
   new_shipping_method: "Nueva forma de envio"
-  new_state: "Nueva provincia"
+  new_state: "Nueva comunidad"
   new_tax_category: "Nueva categoría"
   new_tax_rate: "Nuevo tipo impositivo"
   new_taxon: "Nueva Categoría"
@@ -932,10 +932,10 @@ es:
   ssl_will_not_be_used_in_production_mode: "SSL no se usará en producción"
   start: Inicio
   start_date: Válido desde
-  state: Provincia
-  state_based: "Provincia"
-  state_setting_description: "Administrar la lista de estados o provincias asociados con cada país."
-  states: Provincias
+  state: Comunidad
+  state_based: "Comunidad"
+  state_setting_description: "Administrar la lista de estados o comunidades asociados con cada país."
+  states: Comunidades
   status: Estado
   stop: Parar
   store: Tienda
