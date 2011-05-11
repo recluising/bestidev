@@ -6,6 +6,13 @@ GIT
       spree_core (>= 0.40.0)
 
 GIT
+  remote: git://github.com/dwradcliffe/spree-homepage.git
+  revision: ae9b51f63647f25ac879063d588bbf0966d68170
+  specs:
+    spree_homepage (2.0)
+      spree_core (>= 0.30.0)
+
+GIT
   remote: git://github.com/gogogoaldi/spree_check_capture.git
   revision: fcd08786d2971588882a028fe9a0e9ca8b9c405e
   specs:
@@ -176,6 +183,7 @@ DEPENDENCIES
   rails (= 3.0.4)
   spree (= 0.40.3)
   spree_check_capture!
+  spree_homepage!
   spree_paypal_express!
   spree_pretty_photo!
   sqlite3-ruby

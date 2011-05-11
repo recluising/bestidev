@@ -13,6 +13,9 @@ gem 'spree', '0.40.3'
 gem "spree_paypal_express", :git => "git://github.com/spree/spree_paypal_express.git"
 gem 'spree_check_capture', :git => 'git://github.com/gogogoaldi/spree_check_capture.git'
 gem "spree_pretty_photo", :git => 'git://github.com/changinglanes/Spree-PrettyPhoto.git' 
+gem 'spree_homepage', :git => 'git://github.com/dwradcliffe/spree-homepage.git'
+
+
 
 gem "legal", :require => "legal", :path => "legal"
 gem "importator", :require => "importator", :path => "importator"

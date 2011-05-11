@@ -1,0 +1,5 @@
+<%= render "shared/welcome" %>
+<p> this is the homepage, here come the links </p>
+<% Taxonomy.all.first.root.children.each do |taxon| %>  
+  <h1><%= link_to taxon.name, seo_url(taxon) %></h1>
+<% end %>  
