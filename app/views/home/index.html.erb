@@ -1,0 +1,4 @@
+<%= render "shared/homeheader"%>
+<% cache('homepage_products') do %>
+  <%= render "shared/products", :products => Product.on_homepage, :taxon => @taxon %>
+<% end %>
