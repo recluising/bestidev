@@ -6,4 +6,5 @@ class LegalHooks < Spree::ThemeSupport::HookListener
 	insert_before :sidebar, 'shared/languages_header'
         replace :admin_product_form_right,'shared/admin_product_form_right_h'
 	insert_before :homepage_products, 'shared/welcome'
+	insert_after :admin_product_form_right, "shared/ext_homepage_admin_product_fields.html"
 end
