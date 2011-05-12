@@ -1,5 +1,8 @@
 <%= render "shared/welcome" %>
-<p> this is the homepage, here come the links </p>
-<% Taxonomy.all.first.root.children.each do |taxon| %>  
-  <h1><%= link_to taxon.name, seo_url(taxon) %></h1>
-<% end %>  
+<% # taxon is a helper from ApplicationHelper, note this depends on how we call the taxon (nav menu)  %>  
+<% # "Atletismo", "Varios", "Nutrición", "Ciclismo", "Natación"] %> 
+<%= link_to ((image_tag 'homelinks/base_natacion_logos.jpg'), seo_url(taxon("Natación"))) %>
+<%= link_to ((image_tag 'homelinks/ciclismo_base_logos.jpg'), seo_url(taxon("Ciclismo"))) %>
+<%= link_to ((image_tag 'homelinks/base_atletismo_logos.jpg'), seo_url(taxon("Atletismo"))) %>
+<h2> Echale un vistazo a los productos mas vendidos en Bestiaz </h2>
+
