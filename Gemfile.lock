@@ -39,6 +39,12 @@ PATH
     legal (1.0.0)
       spree_core (>= 0.40.0)
 
+PATH
+  remote: products_visibility
+  specs:
+    products_visibility (1.0.0)
+      spree_core (>= 0.40.3)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -180,6 +186,7 @@ PLATFORMS
 DEPENDENCIES
   importator!
   legal!
+  products_visibility!
   rails (= 3.0.4)
   spree (= 0.40.3)
   spree_check_capture!

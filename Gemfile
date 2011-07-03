@@ -45,3 +45,4 @@ gem "importator", :require => "importator", :path => "importator"
 # group :development, :test do
 #   gem 'webrat'
 # end
+gem "products_visibility", :require => "products_visibility", :path => "products_visibility"

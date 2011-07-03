@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101219201531) do
+ActiveRecord::Schema.define(:version => 20110703111849) do
 
   create_table "addresses", :force => true do |t|
     t.string   "firstname"
@@ -63,6 +63,19 @@ ActiveRecord::Schema.define(:version => 20101219201531) do
 
   add_index "assets", ["viewable_id"], :name => "index_assets_on_viewable_id"
   add_index "assets", ["viewable_type", "type"], :name => "index_assets_on_viewable_type_and_type"
+
+  create_table "banners", :force => true do |t|
+    t.integer  "position"
+    t.string   "tagline"
+    t.string   "target_url"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "visible"
+  end
 
   create_table "calculators", :force => true do |t|
     t.string   "type"
@@ -320,7 +333,8 @@ ActiveRecord::Schema.define(:version => 20101219201531) do
     t.string   "meta_description"
     t.string   "meta_keywords"
     t.integer  "count_on_hand",        :default => 0,     :null => false
-    t.boolean  "show_on_homepage",     :default => false, :null => false
+    t.boolean  "show_on_homepage",     :default => false
+    t.integer  "visibility",           :default => 5
   end
 
   add_index "products", ["available_on"], :name => "index_products_on_available_on"
